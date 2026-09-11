@@ -10,7 +10,7 @@ import SwiftUI
 
 
 public final class CoreColor {
-    var ringBackground: Color = .pink
-    var primary : Color = .blue
-    var secondary : Color = .red
+    static var ringBackground: Color = .pink
+    static var primary : Color = .blue
+    static var secondary : Color = .red
 }

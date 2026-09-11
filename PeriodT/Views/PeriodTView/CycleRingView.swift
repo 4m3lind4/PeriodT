@@ -23,12 +23,8 @@ struct CycleRingView: View {
 
 struct ProgressBar: View {
     @Binding var progress: Float
-    //MARK: Colour sets
-    var color: Color = .pink
-    var primary : Color = .blue
-    var secondary : Color = .red
     private let strokeWidth: CGFloat = 32.0
-    private let startDegrees: Double = 200.0
+    private let startDegrees: Double = 270.0
 
     
     func endPosition(for angle: Double, in size: CGSize) -> CGPoint {
@@ -62,17 +58,17 @@ struct ProgressBar: View {
                 Circle()
                     .trim(from:0.0, to: CGFloat(min(self.progress, 1.0)))
                     .stroke(style: StrokeStyle(lineWidth: 32.0, lineCap:.round,lineJoin: .round))
-                    .foregroundColor(Color.ringBackground)
+                    .foregroundColor(CoreColor.ringBackground)
                     .rotationEffect(Angle(degrees: startDegrees))
                     .animation(.easeInOut(duration: 2.0))
                 
                 
                 //START CIRCLE (DAY 1)
                 Circle()
-                    .fill(primary)
+                    .fill(CoreColor.ringBackground)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text("Day 1")
+                        Text("")
                             .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.white)
 //                            .position(endPos)
@@ -80,7 +76,7 @@ struct ProgressBar: View {
                     .position(startPos)
                 //END CIRCLE
                 Circle()
-                    .fill(primary)
+                    .fill(CoreColor.primary)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
                         Text("End")
@@ -91,16 +87,16 @@ struct ProgressBar: View {
                 
                 // Navigation Button
 //MARK: REMOVE
-//                NavigationLink(destination: EmptyView()) {
-//                    Circle()
-//                        .fill(Color.gray)
-//                        .frame(width: strokeWidth, height: strokeWidth)
-//                        .overlay(
-//                            Image(systemName: "chevron.right")
-//                                .font(.system(size: 10, weight: .bold))
-//                                .foregroundColor(.white)
-//                        )
-//                }
+                NavigationLink(destination: EmptyView()) {
+                    Circle()
+                        .fill(Color.gray)
+                        .frame(width: strokeWidth, height: strokeWidth)
+                        .overlay(
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(.white)
+                        )
+                }
                 .position(preStartPos)
                 //Internal Text
                 VStack{
@@ -115,7 +111,7 @@ struct ProgressBar: View {
                         .font(.title3)
                         
                 }
-                .foregroundStyle(Color("Primary"))
+                .foregroundStyle(Color(CoreColor.ringBackground))
 
             }
         }
