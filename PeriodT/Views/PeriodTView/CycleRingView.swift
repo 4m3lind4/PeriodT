@@ -1,0 +1,132 @@
+//
+//  CycleRingView.swift
+//  PeriodT
+//
+//  Created by Jessica Amelinda Mang on 11/9/2026.
+//
+
+import SwiftUI
+
+struct CycleRingView: View {
+    @State var progressValue: Float = 0.0
+    var body: some View {
+        VStack{
+            ProgressBar(progress: self.$progressValue)
+                .frame(width: 260.0, height: 260)
+                .padding(20.0).onAppear(){
+                    self.progressValue = 0.30
+                }
+            
+        }
+    }
+}
+
+struct ProgressBar: View {
+    @Binding var progress: Float
+    //MARK: Colour sets
+    var color: Color = .pink
+    var primary : Color = .blue
+    var secondary : Color = .red
+    private let strokeWidth: CGFloat = 32.0
+    private let startDegrees: Double = 200.0
+
+    
+    func endPosition(for angle: Double, in size: CGSize) -> CGPoint {
+        let radius = (min(size.width, size.height) / 2) - (strokeWidth / 2) + 16
+        let radians = angle * .pi / 180
+        return CGPoint(
+            x: size.width / 2 + radius * CGFloat(cos(radians)),
+            y: size.height / 2 + radius * CGFloat(sin(radians))
+        )
+    }
+    
+    var body: some View{
+        
+        GeometryReader{ geometry in
+            let size = geometry.size
+            let startAngle = startDegrees - 360
+            let endAngle = startAngle + Double(progress) * 360.0
+            let preStartAngle = startAngle - 80
+
+            let startPos    = endPosition(for: startAngle, in: size)
+            let endPos      = endPosition(for: endAngle, in: size)
+            let preStartPos = endPosition(for: preStartAngle, in: size)
+
+
+            ZStack {
+                Circle()
+                    .stroke(lineWidth: 40.0)
+                    .opacity(0.20)
+                    .foregroundColor(Color.secondary)
+                //Period Animation
+                Circle()
+                    .trim(from:0.0, to: CGFloat(min(self.progress, 1.0)))
+                    .stroke(style: StrokeStyle(lineWidth: 32.0, lineCap:.round,lineJoin: .round))
+                    .foregroundColor(Color.ringBackground)
+                    .rotationEffect(Angle(degrees: startDegrees))
+                    .animation(.easeInOut(duration: 2.0))
+                
+                
+                //START CIRCLE (DAY 1)
+                Circle()
+                    .fill(primary)
+                    .frame(width: strokeWidth, height: strokeWidth)
+                    .overlay(
+                        Text("Day 1")
+                            .font(.system(size: 8, weight: .bold))
+                            .foregroundColor(.white)
+//                            .position(endPos)
+                )
+                    .position(startPos)
+                //END CIRCLE
+                Circle()
+                    .fill(primary)
+                    .frame(width: strokeWidth, height: strokeWidth)
+                    .overlay(
+                        Text("End")
+                            .font(.system(size: 8, weight: .bold))
+                            .foregroundColor(.white)
+                )
+                    .position(endPos)
+                
+                // Navigation Button
+//MARK: REMOVE
+//                NavigationLink(destination: EmptyView()) {
+//                    Circle()
+//                        .fill(Color.gray)
+//                        .frame(width: strokeWidth, height: strokeWidth)
+//                        .overlay(
+//                            Image(systemName: "chevron.right")
+//                                .font(.system(size: 10, weight: .bold))
+//                                .foregroundColor(.white)
+//                        )
+//                }
+                .position(preStartPos)
+                //Internal Text
+                VStack{
+                    Text("Period in")
+                        .font(.title3)
+                    // Number of days remaining
+                    Text("7")
+                        .font(.largeTitle)
+                        .bold()
+
+                    Text("Days")
+                        .font(.title3)
+                        
+                }
+                .foregroundStyle(Color("Primary"))
+
+            }
+        }
+        
+    }
+    struct CycleInsightView_Previews: PreviewProvider {
+        static var previews: some View {
+            CycleRingView()
+        }
+    }
+}
+#Preview {
+    CycleRingView()
+}
