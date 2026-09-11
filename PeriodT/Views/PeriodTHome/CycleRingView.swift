@@ -68,7 +68,7 @@ struct ProgressBar: View {
                     .fill(CoreColor.ringBackground)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text("")
+                        Text("Due")
                             .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.white)
 //                            .position(endPos)
@@ -79,7 +79,7 @@ struct ProgressBar: View {
                     .fill(CoreColor.primary)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text("End")
+                        Text("You")
                             .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.white)
                 )
