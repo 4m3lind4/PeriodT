@@ -9,11 +9,9 @@ import SwiftUI
 
 struct PeriodTHome: View {
     var body: some View {
-        Capsule(upperText: "hellow", lowerText: "your period is coming", systemimage: "cloud.sun.fill",type: .withImage)
-
+        UpcomingEventCapsule( title: "National Team Selection", daysRemaining: 45)
         CycleRingView()
-        
-        Capsule(upperText: "Test remove image", lowerText: "its gone", systemimage: "book",type: .withoutImage)
+        Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
         
     }
 }

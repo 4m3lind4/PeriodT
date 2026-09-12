@@ -21,6 +21,7 @@ struct Capsule: View {
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Text(upperText)
+                .padding(1)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
             if type == .withImage{
                 let systemimage = systemimage!
@@ -44,7 +45,7 @@ struct Capsule: View {
 }
 
 #Preview {
-
+    Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
 }
 
 

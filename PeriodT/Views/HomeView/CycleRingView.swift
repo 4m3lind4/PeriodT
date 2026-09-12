@@ -91,8 +91,8 @@ struct ProgressBar: View {
                     .fill(CoreColor.primary)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text("Due")
-                            .font(.system(size: 8, weight: .bold))
+                        Image(systemName: "drop.fill")
+                            .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.white)
 //                            .position(endPos)
                 )
