@@ -51,21 +51,44 @@ struct ProgressBar: View {
 
             ZStack {
                 Circle()
-                    .stroke(lineWidth: 40.0)
+                    .stroke(
+                        CoreColor.ringBackground,
+                        lineWidth: 40.0
+                    )
+                
                     .opacity(0.20)
-                    .foregroundColor(Color.secondary)
                 //Period Animation
                 Circle()
-                    .trim(from:0.0, to: CGFloat(min(self.progress, 1.0)))
-                    .stroke(style: StrokeStyle(lineWidth: 32.0, lineCap:.round,lineJoin: .round))
-                    .foregroundColor(CoreColor.ringBackground)
-                    .rotationEffect(Angle(degrees: startDegrees))
-                    .animation(.easeInOut(duration: 2.0))
+                    .trim(
+                        from: 0.0,
+                        to: CGFloat(min(self.progress, 1.0))
+                    )
+                    .stroke(
+                        AngularGradient(
+                            gradient: Gradient(colors: [
+                                CoreColor.primary,
+                                CoreColor.ringBackground
+                                
+                                
+                            ]),
+                            center: .center
+                        ),
+                        style: StrokeStyle(
+                            lineWidth: 32.0,
+                            lineCap: .round,
+                            lineJoin: .round
+                        )
+                    )
+                    .rotationEffect(.degrees(startDegrees))
+                    .animation(
+                        .easeInOut(duration: 2.0),
+                        value: progress
+                    )
                 
                 
-                //START CIRCLE (DAY 1)
+                //PERIOD DEADLINE
                 Circle()
-                    .fill(CoreColor.ringBackground)
+                    .fill(CoreColor.primary)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
                         Text("Due")
@@ -74,12 +97,13 @@ struct ProgressBar: View {
 //                            .position(endPos)
                 )
                     .position(startPos)
-                //END CIRCLE
+                //USER CIRCLE
                 Circle()
-                    .fill(CoreColor.primary)
+                    .fill(CoreColor.secondary)
+                    .stroke(CoreColor.ringBackground, lineWidth: 2)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text("You")
+                        Text(":)")
                             .font(.system(size: 8, weight: .bold))
                             .foregroundColor(.white)
                 )
@@ -109,9 +133,20 @@ struct ProgressBar: View {
 
                     Text("Days")
                         .font(.title3)
+                    
+                    
+                    
+                    Text("Luteral Phase")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(.white)
+                        .frame(width: 150, height: 42)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)                               .fill(CoreColor.secondary)
+                        )
+                        .padding(.top, 1)
                         
                 }
-                .foregroundStyle(Color(CoreColor.ringBackground))
+                .foregroundStyle(Color(CoreColor.primary))
 
             }
         }
