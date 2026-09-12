@@ -14,7 +14,7 @@ struct UpcomingEventCapsule: View {
     var body: some View {
         VStack(spacing:0){
             Text("Upcoming Event...")
-                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .font(.system(size: 14, weight: .bold, design: .rounded))
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 24)
@@ -23,7 +23,7 @@ struct UpcomingEventCapsule: View {
 
             HStack{
                 Text(title)
-                    .font(.system(size: 24))
+                    .font(.system(size: 16))
                     .foregroundStyle(.white)
 
                 Spacer()
@@ -32,7 +32,7 @@ struct UpcomingEventCapsule: View {
                     .font(.system(size: 24, weight: .bold))
                     .foregroundStyle(.white)
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(CoreColor.accent)
         }

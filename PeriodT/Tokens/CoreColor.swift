@@ -10,25 +10,25 @@ import SwiftUI
 
 public final class CoreColor {
     
-    // MARK: - Primary Brand Colours
+    // MARK: Primary Brand Colours
     
     static var primary: Color = Color(hex: "#D96F94")
     
     static var secondary: Color = Color(hex: "#A875A6")
     
-    // MARK: - Background Colours
+    // MARK: Background Colours
     
     static var ringBackground: Color = Color(hex: "#FFEBF2")
     
     static var lavender: Color = Color(hex: "#DEC6E8")
     
-    // MARK: - Accent Colours
+    // MARK: Accent Colours
     
     static var accent: Color = Color(hex: "#EE7D56")
     
     static var white: Color = Color(hex: "#FFFFFF")
 }
-// MARK: - Hex Colour Extension
+// MARK: Hex Colour Extension
 
 extension Color {
     init(hex: String) {
