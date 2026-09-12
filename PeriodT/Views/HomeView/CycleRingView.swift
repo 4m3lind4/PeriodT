@@ -99,13 +99,13 @@ struct ProgressBar: View {
                     .position(startPos)
                 //USER CIRCLE
                 Circle()
-                    .fill(CoreColor.secondary)
-                    .stroke(CoreColor.ringBackground, lineWidth: 2)
+                    .fill(CoreColor.ringBackground)
+                    .stroke(CoreColor.ringBackground, lineWidth: 2.5)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
-                        Text(":)")
-                            .font(.system(size: 8, weight: .bold))
-                            .foregroundColor(.white)
+                        Image(systemName: "face.smiling.inverse")
+                            .font(.system(size: 30, weight: .bold))
+                            .foregroundStyle(CoreColor.secondary)
                 )
                     .position(endPos)
                 
@@ -113,13 +113,13 @@ struct ProgressBar: View {
 //MARK: REMOVE
                 NavigationLink(destination: EmptyView()) {
                     Circle()
-                        .fill(Color.gray)
+                        .fill(.clear)
                         .frame(width: strokeWidth, height: strokeWidth)
-                        .overlay(
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundColor(.white)
-                        )
+//                        .overlay(
+//                            Image(systemName: "chevron.right")
+//                                .font(.system(size: 10, weight: .bold))
+//                                .foregroundColor(.white)
+//                        )
                 }
                 .position(preStartPos)
                 //Internal Text

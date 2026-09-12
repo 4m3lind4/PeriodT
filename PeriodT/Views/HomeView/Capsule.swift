@@ -6,16 +6,27 @@
 //
 
 import SwiftUI
+enum CapsuleType{
+    case withImage
+    case withoutImage
+}
 
 struct Capsule: View {
     var upperText: String
     var lowerText: String
-    var systemimage: String
+    var systemimage: String?
+    var type: CapsuleType
+    
+    
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Text(upperText)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
-            Image(systemName: systemimage)
+            if type == .withImage{
+                let systemimage = systemimage!
+                Image(systemName: systemimage)
+                    .foregroundStyle(Color.secondary)
+            }
             
             Divider()
                 .frame(minHeight: 2)
@@ -26,15 +37,14 @@ struct Capsule: View {
         }
         .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(CoreColor.secondary, lineWidth: 2) // Sets the color and thickness
+                    .stroke(CoreColor.secondary, lineWidth: 2)
         )
         .padding()
     }
 }
 
 #Preview {
-    Capsule(upperText: "hellow", lowerText: "your period is coming", systemimage: "cloud.sun.fill")
-    Capsule(upperText: "goodbye", lowerText: "its gone", systemimage: "book")
+
 }
 
 
