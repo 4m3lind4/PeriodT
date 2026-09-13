@@ -141,7 +141,7 @@ struct ProgressBar: View {
                         .foregroundStyle(.white)
                         .frame(width: 150, height: 42)
                         .background(
-                            RoundedRectangle(cornerRadius: 15)                               .fill(CoreColor.secondary)
+                            RoundedRectangle(cornerRadius: 15 )                               .fill(CoreColor.secondary)
                         )
                         .padding(.top, 1)
                         

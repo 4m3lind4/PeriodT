@@ -37,7 +37,7 @@ struct WeekSelector: View {
 
                     Text(item.day)
                         .font(.system(size: 18, weight: .bold))
-
+                    
                     Text("\(item.date)")
                         .font(.system(size: 22))
                 }
@@ -56,9 +56,6 @@ struct WeekSelector: View {
                         }
                     }
                 )
-                .onTapGesture {
-                    selectedDate = item.date
-                }
             }
         }
         .background(

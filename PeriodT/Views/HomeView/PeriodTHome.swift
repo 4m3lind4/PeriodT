@@ -43,16 +43,9 @@ struct PeriodTHome: View {
                 CycleRingView()
                 
                 UpcomingEventCapsule( title: "National Team Selection", daysRemaining: 45)
+                Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
                 
-                VStack(alignment: .leading, spacing:1){
-                    Text("The Forcast")
-                        .font(Font.system(size: 30, weight: .bold, design: .rounded))
-                        .foregroundColor(CoreColor.primary)
-                        .padding(.horizontal,12)
 
-                    Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
-
-                }
 
 
                 
