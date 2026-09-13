@@ -27,6 +27,8 @@ public final class CoreColor {
     static var accent: Color = Color(hex: "#EE7D56")
     
     static var white: Color = Color(hex: "#FFFFFF")
+    
+    static var yellow: Color = Color(hex: "#FAD72C")
 }
 // MARK: Hex Colour Extension
 

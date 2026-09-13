@@ -1,5 +1,5 @@
 //
-//  PeriodForecase.swift
+//  phaseLabel.swift
 //  PeriodT
 //
 //  Created by Jessica Amelinda Mang on 13/9/2026.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct PeriodForecase: View {
+struct phaseLabelView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    PeriodForecase()
+    phaseLabelView()
 }

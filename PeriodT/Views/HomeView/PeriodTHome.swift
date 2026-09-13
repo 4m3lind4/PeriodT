@@ -39,17 +39,16 @@ struct PeriodTHome: View {
 // MARK: ------ COMPLIATION OF ITEMS
 
                 WeekSelector()
-
-                CycleRingView()
-                
                 UpcomingEventCapsule( title: "National Team Selection", daysRemaining: 45)
-                Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
-                
-
-
+                Spacer()
+                CycleRingView()
+                Spacer()
+                ChartItem()
+//                Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
 
                 
             }
+            .padding(10)
         }
         
     }

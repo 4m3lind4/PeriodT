@@ -56,7 +56,7 @@ struct ProgressBar: View {
                         lineWidth: 40.0
                     )
                 
-                    .opacity(0.20)
+                    .opacity(0.70)
                 //Period Animation
                 Circle()
                     .trim(
@@ -100,7 +100,7 @@ struct ProgressBar: View {
                 //USER CIRCLE
                 Circle()
                     .fill(CoreColor.ringBackground)
-                    .stroke(CoreColor.ringBackground, lineWidth: 2.5)
+                    .stroke(CoreColor.ringBackground, lineWidth: 4)
                     .frame(width: strokeWidth, height: strokeWidth)
                     .overlay(
                         Image(systemName: "face.smiling.inverse")
