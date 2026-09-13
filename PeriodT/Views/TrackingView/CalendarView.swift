@@ -12,6 +12,8 @@ struct CalendarView: View {
 
     @State private var date = Date.now
 
+    @State private var selectedDay: SelectedDay?
+    
     private let daysOfWeek =
         Date.capitaliseFirstLetterOfWeek
 
