@@ -24,6 +24,11 @@ struct ChartItem: View {
                     .multilineTextAlignment(.center)
                     .padding(1)
                     .foregroundStyle(CoreColor.primary)
+                    .font(.body)
+                Text("Your Emotional States")
+                    .font(Font.system(size: 16, weight: .bold, design: .rounded))
+                    .padding(-5)
+                    .foregroundColor(CoreColor.primary)
                 
 
                 ChartView()
@@ -32,6 +37,7 @@ struct ChartItem: View {
                             .fill(CoreColor.white)
                     }
                 HStack{
+                    //TODO: UPDATE THIS TO BE SIMPLIFIED
                     Text("Menstruation")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(.white)
@@ -73,13 +79,6 @@ struct ChartItem: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(CoreColor.ringBackground)
             }
-
-//            .shadow(
-//                color: .black.opacity(0.1),
-//                radius: 6,
-//                x: 0,
-//                y: 3
-//            )
             .padding(.horizontal, 10)
         }
     }

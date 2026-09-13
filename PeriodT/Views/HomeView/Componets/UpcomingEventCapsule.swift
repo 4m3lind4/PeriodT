@@ -27,7 +27,6 @@ struct UpcomingEventCapsule: View {
                     .foregroundStyle(.white)
 
                 Spacer()
-//
                 Text("\(daysRemaining) Days")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundStyle(.white)

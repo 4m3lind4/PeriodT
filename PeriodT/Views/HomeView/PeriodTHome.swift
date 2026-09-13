@@ -44,9 +44,10 @@ struct PeriodTHome: View {
                 CycleRingView()
                 Spacer()
                 ChartItem()
-//                Capsule(upperText: "Upcoming Event", lowerText: "Nationals Team Selection", systemimage: nil ,type: .withoutImage)
+                Spacer()
+                ProgramViews()
+                    .padding(.horizontal,-20)
 
-                
             }
             .padding(10)
         }

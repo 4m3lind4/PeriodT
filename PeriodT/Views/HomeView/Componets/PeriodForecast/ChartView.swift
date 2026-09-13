@@ -51,6 +51,11 @@ struct ChartView: View {
                 by: .value("Cycle phase", "Luteal")
             )
         }
+        .chartForegroundStyleScale([
+            "Menstrual": CoreColor.primary,
+            "Luteal": CoreColor.secondary
+        ])
+        
         .frame(height: 200)
         .padding(10)
     }

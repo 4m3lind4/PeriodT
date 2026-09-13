@@ -31,12 +31,35 @@ extension ExerciseType {
 
 struct ExerciseProgram: Identifiable {
     let id = UUID()
-    let date: String
+    let date: Date
     let day: Int
     let exerciseDuration: Int
     let numberOfExercises: Int
     let exerciseType: ExerciseType
     
+    var formattedDate: String {
+        date.formattedProgramDate()
+    }
+    
+    var color: Color {
+        if dateNumber(date: date) >= dateNumber(date: Date()) {
+            CoreColor.primary
+        } else {
+            CoreColor.lavender
+        }
+    }
+    
+    private let DateNumberFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    
+    func dateNumber(date: Date) -> Int {
+        Int(DateNumberFormatter.string(from: date)) ?? 0
+    }
 }
 
 struct ProgramCard: View {
@@ -55,7 +78,7 @@ struct ProgramCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(program.date)
+            Text(program.formattedDate)
                 .font(.title3)
 
             Text("Day \(program.day) | \(program.exerciseType.title) ")
@@ -72,15 +95,25 @@ struct ProgramCard: View {
         .padding(16)
         .frame(width: 230, height: 150, alignment: .leading)
         .foregroundStyle(.white)
-        .background(CoreColor.primary)
+        .background(program.color)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
+
+extension Date {
+    func formattedProgramDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE d MMM"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: self).uppercased()
+    }
+}
+
 #Preview {
     ProgramCard(
         
         program: ExerciseProgram(
-            date: "MON 7 SEP", day: 1, exerciseDuration: 60, numberOfExercises: 4, exerciseType: .physio
+            date: Date(), day: 1, exerciseDuration: 60, numberOfExercises: 4, exerciseType: .physio
         )
         
     )

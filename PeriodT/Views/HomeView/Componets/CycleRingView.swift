@@ -110,16 +110,12 @@ struct ProgressBar: View {
                     .position(endPos)
                 
                 // Navigation Button
-//MARK: REMOVE
+//TODO: REMOVE AFTER ASSESSMENT
                 NavigationLink(destination: EmptyView()) {
                     Circle()
                         .fill(.clear)
                         .frame(width: strokeWidth, height: strokeWidth)
-//                        .overlay(
-//                            Image(systemName: "chevron.right")
-//                                .font(.system(size: 10, weight: .bold))
-//                                .foregroundColor(.white)
-//                        )
+
                 }
                 .position(preStartPos)
                 //Internal Text
@@ -141,7 +137,8 @@ struct ProgressBar: View {
                         .foregroundStyle(.white)
                         .frame(width: 150, height: 42)
                         .background(
-                            RoundedRectangle(cornerRadius: 15 )                               .fill(CoreColor.secondary)
+                            RoundedRectangle(cornerRadius: 15 )
+                                .fill(CoreColor.secondary)
                         )
                         .padding(.top, 1)
                         

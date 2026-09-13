@@ -13,25 +13,68 @@ struct WeekDayItem: Identifiable{
     let date: Int
 }
 
+struct WeekSelectorViewModel {
+    let currentDate = Date()
+    
+    private let programDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    private let DateNumberFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    var currentDateAbrev: String {
+        programDateFormatter.string(from: currentDate).uppercased()
+    }
+    
+    var currentDateNumber: Int {
+        Int(DateNumberFormatter.string(from: currentDate))!
+    }
+    
+    private var dateOffSet: Int {
+        switch currentDateAbrev {
+        case "MON": return 0
+        case "TUE": return 1
+        case "WED": return 2
+        case "THU": return 3
+        case "FRI": return 4
+        case "SAT": return 5
+        case "SUN": return 6
+        default: return 0
+        }
+    }
+    
+    private var startOfWeek: Date {
+        Calendar.current.date(byAdding: .day, value: -dateOffSet, to: currentDate) ?? currentDate
+    }
+
+    var days: [WeekDayItem] {
+        (0..<7).map { offset in
+            let date = Calendar.current.date(byAdding: .day, value: offset, to: startOfWeek) ?? startOfWeek
+            return WeekDayItem(
+                day: programDateFormatter.string(from: date).uppercased(),
+                date: Int(DateNumberFormatter.string(from: date)) ?? 0
+            )
+        }
+    }
+}
+
 struct WeekSelector: View {
-
-    let days: [WeekDayItem] = [
-        WeekDayItem(day: "TUE", date: 7),
-        WeekDayItem(day: "WED", date: 8),
-        WeekDayItem(day: "THU", date: 9),
-        WeekDayItem(day: "FRI", date: 10),
-        WeekDayItem(day: "SAT", date: 11),
-        WeekDayItem(day: "SUN", date: 12),
-        WeekDayItem(day: "MON", date: 13)
-    ]
-
-    @State private var selectedDate: Int = 7
+    
+    var weekSelectorViewModel = WeekSelectorViewModel()
 
     var body: some View {
 
         HStack(spacing: 0) {
 
-            ForEach(days) { item in
+            ForEach(weekSelectorViewModel.days) { item in
 
                 VStack(spacing: 12) {
 
@@ -42,7 +85,7 @@ struct WeekSelector: View {
                         .font(.system(size: 22))
                 }
                 .foregroundStyle(
-                    selectedDate == item.date
+                    weekSelectorViewModel.currentDateNumber == item.date
                     ? Color.white
                     : CoreColor.primary
                 )
@@ -50,7 +93,7 @@ struct WeekSelector: View {
                 .padding(.vertical, 18)
                 .background(
                     Group {
-                        if selectedDate == item.date {
+                        if weekSelectorViewModel.currentDateNumber == item.date {
                             RoundedRectangle(cornerRadius: 18)
                                 .fill(CoreColor.primary)
                         }
@@ -65,15 +108,13 @@ struct WeekSelector: View {
         .clipShape(
             RoundedRectangle(cornerRadius: 12)
         )
-//        .shadow(
-//            color: .black.opacity(0.18),
-//            radius: 5,
-//            x: 0,
-//            y: 4
-//        )
         .padding()
     }
+    
+
 }
+
+
 
 #Preview {
     WeekSelector()
