@@ -7,60 +7,6 @@
 
 import SwiftUI
 
-enum ExerciseType {
-    case physio
-    case conditioningTraining
-    
-}
-
-extension ExerciseType {
-    var title: String {
-        
-        switch self {
-            
-        case .physio:
-            return "Physio"
-
-        case .conditioningTraining:
-            return "Conditioning"
-        }
-    }
-}
-
-
-
-struct ExerciseProgram: Identifiable {
-    let id = UUID()
-    let date: Date
-    let day: Int
-    let exerciseDuration: Int
-    let numberOfExercises: Int
-    let exerciseType: ExerciseType
-    
-    var formattedDate: String {
-        date.formattedProgramDate()
-    }
-    
-    var color: Color {
-        if dateNumber(date: date) >= dateNumber(date: Date()) {
-            CoreColor.primary
-        } else {
-            CoreColor.lavender
-        }
-    }
-    
-    private let DateNumberFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter
-    }()
-    
-    
-    func dateNumber(date: Date) -> Int {
-        Int(DateNumberFormatter.string(from: date)) ?? 0
-    }
-}
 
 struct ProgramCard: View {
     let program: ExerciseProgram

@@ -20,7 +20,6 @@ struct CalendarView: View {
         count: 7
     )
 
-    // Change 6 to the number of months you want.
     private var monthsArray: [Date] {
         (0..<3).compactMap { monthOffset in
             Calendar.current.date(

@@ -7,13 +7,6 @@
 import SwiftUI
 import Charts
 
-struct EmotionalLevel: Identifiable {
-    let id = UUID()
-    let day: String
-    let menstrualLevel: Double
-    let lutealLevel: Double
-}
-
 struct ChartView: View {
     let data: [EmotionalLevel] = [
         EmotionalLevel(day: "Mon", menstrualLevel: 10, lutealLevel: 20),
