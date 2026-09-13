@@ -8,44 +8,49 @@
 import SwiftUI
 
 struct ProgramViews: View {
-    var Date: String
-    var Day: Int
-    var ExerciseDuration: String
-    var NumOFExercise: Int
-    
+    //MARK: DUMMY VARIABLES FOR PROGRAMS
+    let programs = [
+            ExerciseProgram(
+                date: "MON 7 SEP",
+                day: 1,
+                exerciseDuration: 60,
+                numberOfExercises: 6,
+                exerciseType: .conditioningTraining
+
+            ),
+            ExerciseProgram(
+                date: "WED 9 SEP",
+                day: 2,
+                exerciseDuration: 45,
+                numberOfExercises: 5,
+                exerciseType: .physio
+            )
+        ]
+
+    //MARK: Formatting
     var body: some View {
-    
         VStack(alignment: .leading, spacing:1){
             Text("My Programs")
                 .font(Font.system(size: 30, weight: .bold, design: .rounded))
                 .foregroundColor(CoreColor.primary)
-                .padding(.horizontal,12)
-
-            //MARK: TO DO BE ABLE TO ADD A CAP OF 5 PROGRAMS FROM PHYSIO & PROGRAMS DUE
-            ScrollView(.horizontal){
-                HStack(spacing:1){
-                    Rectangle()
-                        .fill(CoreColor.primary)
-                        .cornerRadius(12)
-                        .padding(10)
-                        .frame(width: 200, height: 120)
-                    Rectangle()
-                        .fill(CoreColor.primary)
-                        .cornerRadius(12)
-                        .padding(10)
-                        .frame(width: 200, height: 120)
-                }
-
-                
-            }
+            Text("Here are your assigned workouts:")
+                .font(.title3)
+                .foregroundStyle(CoreColor.primary)
 
             
-
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(){
+                    ForEach(programs.prefix(5)) { program in
+                        ProgramCard(program: program)
+                        
+                    }
+                    
+                }
+            }
         }
-        
     }
 }
 
 #Preview {
-    ProgramViews(Date: "MON 7", Day: 1, ExerciseDuration: "60", NumOFExercise: 6)
+    ProgramViews()
 }
