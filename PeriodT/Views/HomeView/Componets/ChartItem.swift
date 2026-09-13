@@ -79,7 +79,6 @@ struct ChartItem: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(CoreColor.ringBackground)
             }
-            .padding(.horizontal, 10)
         }
     }
 }

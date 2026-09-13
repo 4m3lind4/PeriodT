@@ -7,7 +7,15 @@
 
 import SwiftUI
 
+
+enum ReviewAnswer: Equatable {
+    case yes
+    case no
+}
+
+
 struct QuestionCardView: View {
+    @State private var selectedAnswer: ReviewAnswer? = nil
     let id = UUID()
     var question: String
     var color: Color
@@ -26,32 +34,38 @@ struct QuestionCardView: View {
                 .background(color)
             
             HStack(spacing: 0) {
-                Button(action: onYes) {
+                Button {
+                    selectedAnswer = .yes
+                    onYes()
+                } label: {
                     Text("Yes")
                         .font(.system(size: 18, weight: .bold))
                         .foregroundColor(CoreColor.primary)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 28)
+                        .padding(.vertical, 15)
+                        .background(selectedAnswer == .yes ? Color.orange.opacity(0.3) : Color.clear)
                 }
-                
+
                 Rectangle()
                     .fill(Color.white.opacity(0.6))
                     .frame(width: 1)
-                
-                
-                Button(action: onNo) {
+
+                Button {
+                    selectedAnswer = .no
+                    onNo()
+                } label: {
                     Text("No")
                         .font(.system(size: 18, weight: .bold))
                         .foregroundColor(CoreColor.primary)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 20)
-                        
+                        .padding(.vertical, 15)
+                        .background(selectedAnswer == .no ? Color.orange.opacity(0.3) : Color.clear)
                 }
             }
             .background(Color.pink.opacity(0.08))
         }
-        .clipShape(RoundedRectangle(cornerRadius: 24))
-        .shadow(color: .black.opacity(0.15), radius: 10, y: 6)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+//        .shadow(color: .black.opacity(0.15), radius: 10, y: 6)
     }
     
 }

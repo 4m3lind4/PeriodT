@@ -16,6 +16,13 @@ struct HomeQuestionaireView: View {
                     
             QuestionCardView(
                 question: "Did you practice or train today?",
+                color: CoreColor.secondary,
+                onYes: { print("Yes tapped") },
+                onNo: { print("No tapped") }
+            )
+            
+            QuestionCardView(
+                question: "Were you on your period?",
                 color: CoreColor.primary,
                 onYes: { print("Yes tapped") },
                 onNo: { print("No tapped") }

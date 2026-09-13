@@ -39,10 +39,11 @@ struct PeriodTHome: View {
 // MARK: ------ COMPLIATION OF ITEMS
 
                 WeekSelector()
+                Spacer()
                 UpcomingEventCapsule( title: "National Team Selection", daysRemaining: 45)
                 Spacer()
                 CycleRingView()
-                Spacer()
+                    .padding(30)
                 ChartItem()
                 Spacer()
                 ProgramViews()
