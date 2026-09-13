@@ -16,7 +16,6 @@ struct CycleRingView: View {
                 .padding(20.0).onAppear(){
                     self.progressValue = 0.30
                 }
-            
         }
     }
 }

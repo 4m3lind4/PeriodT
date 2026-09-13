@@ -47,6 +47,7 @@ struct PeriodTHome: View {
                 Spacer()
                 ProgramViews()
                     .padding(.horizontal,-20)
+                HomeQuestionaireView()
 
             }
             .padding(10)

@@ -7,19 +7,25 @@
 
 import SwiftUI
 
-struct QuickQuestionaireView: View {
+struct HomeQuestionaireView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Review")
                 .font(.system(size: 30, weight: .heavy, design: .rounded))
                 .foregroundColor(CoreColor.primary)
-
-            //TODO: ADD CARD
+                    
+            QuestionCardView(
+                question: "Did you practice or train today?",
+                color: CoreColor.primary,
+                onYes: { print("Yes tapped") },
+                onNo: { print("No tapped") }
+            )
+            
         }
-        .padding()    }
+    }
 }
 
 #Preview {
-    QuickQuestionaireView()
+    HomeQuestionaireView()
 }
 

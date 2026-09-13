@@ -27,11 +27,8 @@ struct ProgramViews: View {
             )
         ]
 
-    //MARK: Formatting
     var body: some View {
         HStack{
-//            Spacer()
-//                .frame(width: 30)
             VStack(alignment: .leading, spacing:1){
                 VStack(alignment: .leading) {
                     Text("My Programs")
@@ -59,8 +56,6 @@ struct ProgramViews: View {
                 }
             }
         }
-//        .padding(10)
-
     }
 
 }
