@@ -10,9 +10,10 @@ import Combine
 
 final class PollViewModel: ObservableObject {
     @Published var questions: [PollQuestion] = [
-        PollQuestion(text: "Did you practice or train today?"),
-        PollQuestion(text: "Did you stretch today?"),
-        PollQuestion(text: "Did you sleep well?")
+        PollQuestion(text: "Did you practice or train today?", color: CoreColor.secondary),
+        PollQuestion(text: "Were you on your period?", color: CoreColor.secondary),
+        PollQuestion(text: "Would you like to inform your coach about your period?", color: CoreColor.secondary),
+        PollQuestion(text: "Would you like to update your coach about your Workout?", color: CoreColor.secondary)
     ]
 
     @Published var answers: [UUID: ReviewAnswer] = [:]

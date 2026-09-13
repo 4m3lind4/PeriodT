@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+let viewModel = WeekSelectorViewModel()
+
 
 struct PeriodTHome: View {
     var body: some View {
@@ -17,13 +19,11 @@ struct PeriodTHome: View {
                             .font(Font.system(size: 30, weight: .bold, design: .rounded))
                             .foregroundColor(CoreColor.primary)
 
-                        
                         Text ("Beth")
                             .font(Font.system(size: 30, weight: .bold, design: .rounded))
                             .foregroundColor(CoreColor.primary)
 
-                        
-                        Text ("Today, 13 September")
+                        Text ("Today, \(viewModel.currentDateNumber) \(viewModel.currentMonthName)")
                             .font(.body)
                             .foregroundColor(CoreColor.primary)
 
@@ -48,7 +48,7 @@ struct PeriodTHome: View {
                 Spacer()
                 ProgramViews()
                     .padding(.horizontal,-20)
-                HomeQuestionaireView()
+//                HomeQuestionaireView()
 
             }
             .padding(10)

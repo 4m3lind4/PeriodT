@@ -10,6 +10,17 @@ import Foundation
 struct WeekSelectorViewModel {
     let currentDate = Date()
     
+    private let fullMonthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM" // "MMMM" outputs the full name (e.g., September)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
+    var currentMonthName: String {
+        fullMonthFormatter.string(from: currentDate)
+    }
+    
     private let programDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEE"
