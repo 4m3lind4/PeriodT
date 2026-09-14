@@ -10,6 +10,7 @@ let viewModel = WeekSelectorViewModel()
 
 
 struct PeriodTHome: View {
+    var exerciseData: ExerciseMockData
     var body: some View {
         ScrollView{
             VStack(spacing:1){
@@ -46,7 +47,7 @@ struct PeriodTHome: View {
                     .padding(30)
                 ChartItem()
                 Spacer()
-                ProgramViews()
+                ProgramViews(exerciseData: exerciseData)
                     .padding(.horizontal,-20)
                 ProgressSection()
                 Spacer()
@@ -62,5 +63,5 @@ struct PeriodTHome: View {
 
 
 #Preview {
-    PeriodTHome()
+    PeriodTHome(exerciseData: ExerciseMockData())
 }

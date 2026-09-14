@@ -36,6 +36,9 @@ struct DayPollView: View {
                     color: question.color
                 )
             }
+            EmotionPollView()
+            IntensitySliderView()
+            JournalView()
         }
         .onAppear {
             record = PollAnswers.fetchOrCreate(for: day, in: modelContext)

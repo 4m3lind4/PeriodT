@@ -59,7 +59,7 @@ extension Date {
     ProgramCard(
         
         program: ExerciseProgram(
-            date: Date(), day: 1, exerciseDuration: 60, numberOfExercises: 4, exerciseType: .physio
+            date: Date(), day: 1, exerciseDuration: 60, numberOfExercises: 4, exerciseType: .physio, workouts: []
         )
         
     )

@@ -15,6 +15,7 @@ struct ExerciseProgram: Identifiable {
     let exerciseDuration: Int
     let numberOfExercises: Int
     let exerciseType: ExerciseType
+    let workouts: [Workout]
     
     var formattedDate: String {
         date.formattedProgramDate()
@@ -39,4 +40,10 @@ struct ExerciseProgram: Identifiable {
     func dateNumber(date: Date) -> Int {
         Int(DateNumberFormatter.string(from: date)) ?? 0
     }
+}
+
+struct Workout: Identifiable {
+    let id = UUID()
+    var name: String
+    var sets: Int?
 }

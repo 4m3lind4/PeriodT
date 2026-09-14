@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    let exerciseData = ExerciseMockData()
     var body: some View {
         TabView{
-            PeriodTHome()
+            PeriodTHome(exerciseData: exerciseData)
                 .tabItem {
                     Image(systemName: "clock")
                     Text("Home")
@@ -23,7 +24,9 @@ struct ContentView: View {
                 }
                 .tag(1)
 
-            PeriodTExercises()
+            NavigationStack {
+                PeriodTExercises(exerciseData: exerciseData)
+            }
                 .tabItem {
                     Image(systemName: "figure.flexibility")
                     Text("Exercise")

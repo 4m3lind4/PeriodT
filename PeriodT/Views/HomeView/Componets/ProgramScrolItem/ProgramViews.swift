@@ -9,23 +9,7 @@ import SwiftUI
 
 struct ProgramViews: View {
     //MARK: DUMMY VARIABLES FOR PROGRAMS
-    let programs = [
-            ExerciseProgram(
-                date: Calendar.current.date(from: DateComponents(year: 2026, month: 9, day: 12)) ?? Date(),
-                day: 1,
-                exerciseDuration: 60,
-                numberOfExercises: 6,
-                exerciseType: .conditioningTraining
-
-            ),
-            ExerciseProgram(
-                date: Calendar.current.date(from: DateComponents(year: 2026, month: 9, day: 14)) ?? Date(),
-                day: 2,
-                exerciseDuration: 45,
-                numberOfExercises: 5,
-                exerciseType: .physio
-            )
-        ]
+    var exerciseData: ExerciseMockData
 
     //MARK: Formatting
     var body: some View {
@@ -48,7 +32,7 @@ struct ProgramViews: View {
                     HStack(){
                         Spacer()
                             .frame(width: 20)
-                        ForEach(programs.prefix(5)) { program in
+                        ForEach(exerciseData.programs.prefix(5)) { program in
                             ProgramCard(program: program)
                             
                         }
@@ -63,5 +47,5 @@ struct ProgramViews: View {
 }
 
 #Preview {
-    ProgramViews()
+    ProgramViews(exerciseData: ExerciseMockData())
 }
