@@ -19,10 +19,10 @@ struct PeriodTExercises: View {
             Text ("Physio Programs")
                 .font(.title2)
                 .foregroundColor(CoreColor.primary)
-
-
+            ProgramViews()
             
         }
+        .padding(10)
     }
 }
 
