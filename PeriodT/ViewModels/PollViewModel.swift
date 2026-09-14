@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// The fixed list of yes/no questions shown in the daily review.
 final class DayPoleModel: ObservableObject {
     @Published var questions: [PollQuestion] = [
         PollQuestion(kind: .trained, text: "Did you practice or train today?", color: CoreColor.secondary),

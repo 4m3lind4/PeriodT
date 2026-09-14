@@ -7,6 +7,7 @@
 import Foundation
 import SwiftUI
 
+/// Stable identifier for each poll question. The raw string is what gets persisted.
 enum PollQuestionKind: String, Codable, CaseIterable {
     case trained
     case onPeriod
@@ -14,6 +15,7 @@ enum PollQuestionKind: String, Codable, CaseIterable {
     case informCoachWorkout
 }
 
+/// Display data for one yes/no question card.
 struct PollQuestion: Identifiable {
     let kind: PollQuestionKind
     let text: String

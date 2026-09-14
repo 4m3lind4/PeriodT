@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Hard-coded programs used in place of a coach backend for the assignment.
 struct ExerciseMockData {
     let programs = [
         ExerciseProgram(

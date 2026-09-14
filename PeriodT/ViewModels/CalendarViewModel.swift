@@ -7,9 +7,10 @@
 
 import Foundation
 import Combine
-import UIKit
 import SwiftUI
 
+/// Predicts pre-period and period days for the calendar highlights.
+/// Currently uses fixed offsets from today rather than logged data.
 class CalendarViewModel: ObservableObject {
     
     @Published var amountOfPrePeriodDays: Int = 3
@@ -24,95 +25,58 @@ class CalendarViewModel: ObservableObject {
         calculateNewMonthPeriod()
     }
     
-    func getAmountOfPeriodDays() -> Int {
-        return amountOfPeriodDays
-    }
-    
-    func getDaysBeforePeriod() -> Int {
-        return 7
-    }
-    
     func isPrePeriodDay(_ day: Date) -> Bool {
         return prePeriodDates.contains { $0.startOfDay == day.startOfDay }
     }
     
+    /// Pre-period days are the N days immediately before today.
     func calculatePrePeriodTime() {
-        var prePeriodDates: [Date] = []
-        
-        for day in 0..<amountOfPrePeriodDays {
-            prePeriodDates.append(Calendar.current.date(byAdding: .day, value: -(day + 1), to: Date())!)
+        let today = Date()
+        self.prePeriodDates = (0..<amountOfPrePeriodDays).compactMap { day in
+            Calendar.current.date(byAdding: .day, value: -(day + 1), to: today)
         }
-        
-        self.prePeriodDates = prePeriodDates
     }
     
+    /// First predicted period starts 7 days from today.
     func calculatePeriodTimes() {
         let startOfToday = Date().startOfDay
-        let startOfPeriodDay = Calendar.current.date(byAdding: .day, value: 7, to: startOfToday)!
+        guard let startOfPeriodDay = Calendar.current.date(byAdding: .day, value: 7, to: startOfToday) else { return }
         
         self.periodDates = calculatePeriodDates(startOfPeriodDay)
     }
     
+    /// Adds the following cycle's period, 21 days after the last predicted day.
     func calculateNewMonthPeriod() {
-        let lastPeriodDay = periodDates.sorted().last!
-        let startOfNextPeriod = Calendar.current.date(byAdding: .day, value: 21, to: lastPeriodDay)!
+        // Nothing to extend from if no period has been predicted yet.
+        guard let lastPeriodDay = periodDates.max(),
+              let startOfNextPeriod = Calendar.current.date(byAdding: .day, value: 21, to: lastPeriodDay)
+        else { return }
         
         self.periodDates.append(contentsOf: calculatePeriodDates(startOfNextPeriod))
     }
     
+    /// Builds a run of consecutive period days starting at `startingDate`.
     func calculatePeriodDates(_ startingDate: Date) -> [Date] {
-        var periodDates: [Date] = []
-        
-        for day in 0..<amountOfPeriodDays {
-            periodDates.append(Calendar.current.date(byAdding: .day, value: day, to: startingDate)!)
+        (0..<amountOfPeriodDays).compactMap { day in
+            Calendar.current.date(byAdding: .day, value: day, to: startingDate)
         }
-        
-        return periodDates
     }
     
     func isPeriodDay(_ day: Date) -> Bool {
         periodDates.contains { $0.startOfDay == day.startOfDay }
     }
     
-    func isFirstPrePeriodDay(_ day: Date) -> Bool {
-        let sortedPrePeriodArray = prePeriodDates.sorted()
-        guard let first = sortedPrePeriodArray.first else { return false }
-        return day.startOfDay == first.startOfDay
-    }
-    
-    func isLastPrePeriodDay(_ day: Date) -> Bool {
-        let sortedPrePeriodArray = prePeriodDates.sorted()
-        guard let last = sortedPrePeriodArray.last else { return false }
-        return day.startOfDay == last.startOfDay
-    }
-    
-    func isFirstPeriodDay(_ day: Date) -> Bool {
-        for batch in periodBatches() {
-            if let first = batch.first, day.startOfDay == first.startOfDay {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    func isLastPeriodDay(_ day: Date) -> Bool {
-        for batch in periodBatches() {
-            if let last = batch.last, day.startOfDay == last.startOfDay {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
+    /// Groups `periodDates` into runs of consecutive days, so each cycle
+    /// can be treated as its own block (used for first/last-day checks).
     func periodBatches() -> [[Date]] {
         let sortedPeriodBatches = periodDates.sorted()
         var periodBatches: [[Date]] = []
         var currentBatch: [Date] = []
         
         for day in sortedPeriodBatches {
-            if let last = currentBatch.last, Calendar.current.isDate(day, inSameDayAs: Calendar.current.date(byAdding: .day, value: 1, to: last)!) {
+            if let last = currentBatch.last,
+               let dayAfterLast = Calendar.current.date(byAdding: .day, value: 1, to: last),
+               Calendar.current.isDate(day, inSameDayAs: dayAfterLast) {
                 currentBatch.append(day)
             } else {
                 if !currentBatch.isEmpty {
@@ -127,19 +91,5 @@ class CalendarViewModel: ObservableObject {
         }
         
         return periodBatches
-    }
-}
-
-struct RoundedCornerShape: Shape {
-    var radius: CGFloat
-    var corners: UIRectCorner
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }

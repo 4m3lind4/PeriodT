@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7F18FB6E30582C8300E8B3BF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA0000000000000000000B2 /* Lottie */; };
+		7FA0000000000000000000A3 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA0000000000000000000A2 /* SnapshotTesting */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		7F1195FF3053B66900606DEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F18FB6E30582C8300E8B3BF /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FA0000000000000000000A3 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,7 @@
 			);
 			name = PeriodT;
 			packageProductDependencies = (
+				7FA0000000000000000000B2 /* Lottie */,
 			);
 			productName = PeriodT;
 			productReference = 7F1195F13053B66900606DEA /* PeriodT.app */;
@@ -135,6 +143,7 @@
 			);
 			name = PeriodTTests;
 			packageProductDependencies = (
+				7FA0000000000000000000A2 /* SnapshotTesting */,
 			);
 			productName = PeriodTTests;
 			productReference = 7F1195FE3053B66900606DEA /* PeriodTTests.xctest */;
@@ -195,6 +204,10 @@
 			);
 			mainGroup = 7F1195E83053B66900606DEA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7FA0000000000000000000A1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				7FA0000000000000000000B1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F1195F23053B66900606DEA /* Products */;
 			projectDirPath = "";
@@ -578,6 +591,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7FA0000000000000000000A1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.17.0;
+			};
+		};
+		7FA0000000000000000000B1 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7FA0000000000000000000A2 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FA0000000000000000000A1 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		7FA0000000000000000000B2 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7FA0000000000000000000B1 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F1195E93053B66900606DEA /* Project object */;
 }

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// App colour palette. Use these instead of hard-coded hex values in views.
 public final class CoreColor {
     
     // MARK: Primary Brand Colours
@@ -29,24 +30,4 @@ public final class CoreColor {
     static var white: Color = Color(hex: "#FFFFFF")
     
     static var yellow: Color = Color(hex: "#FAD72C")
-}
-// MARK: Hex Colour Extension
-
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        
-        let red = Double((int >> 16) & 0xFF) / 255
-        let green = Double((int >> 8) & 0xFF) / 255
-        let blue = Double(int & 0xFF) / 255
-        
-        self.init(
-            red: red,
-            green: green,
-            blue: blue
-        )
-    }
 }

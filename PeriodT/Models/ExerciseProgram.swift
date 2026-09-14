@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct ExerciseProgram: Identifiable {
+/// A single scheduled workout session assigned by the coach.
+struct ExerciseProgram: Identifiable, Hashable {
     let id = UUID()
     let date: Date
     let day: Int
@@ -21,8 +22,10 @@ struct ExerciseProgram: Identifiable {
         date.formattedProgramDate()
     }
     
+    /// Upcoming programs are pink, past ones fade to lavender.
+    /// Compares whole dates, not day-of-month, so month boundaries work.
     var color: Color {
-        if dateNumber(date: date) >= dateNumber(date: Date()) {
+        if date.startOfDay >= Date().startOfDay {
             CoreColor.primary
         } else {
             CoreColor.lavender
@@ -37,13 +40,9 @@ struct ExerciseProgram: Identifiable {
     }()
     
     
+    /// Day-of-month as an Int (e.g. 14 for the 14th).
     func dateNumber(date: Date) -> Int {
         Int(DateNumberFormatter.string(from: date)) ?? 0
     }
 }
 
-struct Workout: Identifiable {
-    let id = UUID()
-    var name: String
-    var sets: Int?
-}
