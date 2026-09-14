@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PeriodTApp: App {
@@ -13,5 +14,6 @@ struct PeriodTApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: PollAnswers.self)
     }
 }

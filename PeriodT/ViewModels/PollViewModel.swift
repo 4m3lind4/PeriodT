@@ -8,21 +8,11 @@
 import Foundation
 import Combine
 
-final class PollViewModel: ObservableObject {
+final class DayPoleModel: ObservableObject {
     @Published var questions: [PollQuestion] = [
-        PollQuestion(text: "Did you practice or train today?", color: CoreColor.secondary),
-        PollQuestion(text: "Were you on your period?", color: CoreColor.secondary),
-        PollQuestion(text: "Would you like to inform your coach about your period?", color: CoreColor.secondary),
-        PollQuestion(text: "Would you like to update your coach about your Workout?", color: CoreColor.secondary)
+        PollQuestion(kind: .trained, text: "Did you practice or train today?", color: CoreColor.secondary),
+        PollQuestion(kind: .onPeriod, text: "Were you on your period?", color: CoreColor.secondary),
+        PollQuestion(kind: .informCoachPeriod, text: "Would you like to inform your coach about your period?", color: CoreColor.secondary),
+        PollQuestion(kind: .informCoachWorkout, text: "Would you like to update your coach about your Workout?", color: CoreColor.secondary)
     ]
-
-    @Published var answers: [UUID: ReviewAnswer] = [:]
-
-    func answer(for question: PollQuestion) -> ReviewAnswer? {
-        answers[question.id]
-    }
-
-    func setAnswer(_ answer: ReviewAnswer, for question: PollQuestion) {
-        answers[question.id] = answer
-    }
 }

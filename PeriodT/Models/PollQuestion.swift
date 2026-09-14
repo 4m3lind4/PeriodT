@@ -7,8 +7,17 @@
 import Foundation
 import SwiftUI
 
+enum PollQuestionKind: String, Codable, CaseIterable {
+    case trained
+    case onPeriod
+    case informCoachPeriod
+    case informCoachWorkout
+}
+
 struct PollQuestion: Identifiable {
-    let id = UUID()
+    let kind: PollQuestionKind
     let text: String
     let color: Color
+
+    var id: PollQuestionKind { kind }
 }

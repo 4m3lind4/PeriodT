@@ -10,7 +10,9 @@ extension Date {
     
     static var capitaliseFirstLetterOfWeek : [String] {
         let calendar = Calendar.current
-        let weekdays = calendar.shortWeekdaySymbols
+        // shortWeekdaySymbols is always Sunday-first; rotate so Monday leads.
+        let weekdays = Array(calendar.shortWeekdaySymbols.dropFirst())
+            + [calendar.shortWeekdaySymbols[0]]
         
         return weekdays.map { weekday in
 
@@ -50,10 +52,11 @@ extension Date {
         Calendar.current.component(.day, from: EndOfMonth)
     }
     
-    var sundayBeforeStart: Date {
-        let startOfMonthWeekday = Calendar.current.component(.weekday, from: StartOfMonth)
-        let numberOfPreviousMonth = startOfMonthWeekday - 1
-        return Calendar.current.date(byAdding: .day, value: -numberOfPreviousMonth, to: StartOfMonth)!
+    /// The Monday on or before the 1st of the month (grid is Monday-first).
+    var mondayBeforeStart: Date {
+        let startOfMonthWeekday = Calendar.current.component(.weekday, from: StartOfMonth) // 1 = Sun ... 7 = Sat
+        let daysSinceMonday = (startOfMonthWeekday + 5) % 7
+        return Calendar.current.date(byAdding: .day, value: -daysSinceMonday, to: StartOfMonth)!
     }
     
     var calendarDisplayDays: [Date] {
@@ -70,7 +73,7 @@ extension Date {
             days.append(newDay!)
         }
                 
-        return days.filter { $0 >= sundayBeforeStart && $0 <= EndOfMonth }.sorted(by: <)
+        return days.filter { $0 >= mondayBeforeStart && $0 <= EndOfMonth }.sorted(by: <)
     }
     
     var monthInt: Int {
@@ -83,5 +86,16 @@ extension Date {
     
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)
+    }
+
+    /// First column of the calendar grid. The grid is always laid out
+    /// Monday-first (see `calendarDisplayDays`), regardless of locale.
+    var isFirstDayOfRow: Bool {
+        Calendar.current.component(.weekday, from: self) == 2 // Monday
+    }
+
+    /// Last column of the calendar grid (Sunday).
+    var isLastDayOfRow: Bool {
+        Calendar.current.component(.weekday, from: self) == 1 // Sunday
     }
 }

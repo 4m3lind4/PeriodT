@@ -8,19 +8,16 @@
 import SwiftUI
 
 
-enum ReviewAnswer: Equatable {
+enum ReviewAnswer: String, Codable, Equatable {
     case yes
     case no
 }
 
 
 struct QuestionCardView: View {
-    @State private var selectedAnswer: ReviewAnswer? = nil
-    let id = UUID()
+    @Binding var selectedAnswer: ReviewAnswer?
     var question: String
     var color: Color
-    var onYes: () -> Void
-    var onNo: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -33,10 +30,10 @@ struct QuestionCardView: View {
                 .frame(maxWidth: .infinity)
                 .background(color)
             
+            
             HStack(spacing: 0) {
                 Button {
                     selectedAnswer = .yes
-                    onYes()
                 } label: {
                     Text("Yes")
                         .font(.system(size: 18, weight: .bold))
@@ -52,7 +49,6 @@ struct QuestionCardView: View {
 
                 Button {
                     selectedAnswer = .no
-                    onNo()
                 } label: {
                     Text("No")
                         .font(.system(size: 18, weight: .bold))
@@ -63,16 +59,20 @@ struct QuestionCardView: View {
                 }
             }
             .background(Color.pink.opacity(0.08))
+            
         }
         .clipShape(RoundedRectangle(cornerRadius: 12))
-//        .shadow(color: .black.opacity(0.15), radius: 10, y: 6)
+        
     }
     
 }
 
 
 #Preview {
+    @Previewable @State var answer: ReviewAnswer? = nil
     QuestionCardView(
-        question: "Did you practice or train today?", color: CoreColor.primary, onYes: { print("Yes tapped") }, onNo: { print("No tapped") }
+        selectedAnswer: $answer,
+        question: "Did you practice or train today?",
+        color: CoreColor.primary
     )
 }

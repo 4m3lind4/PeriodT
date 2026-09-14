@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CalendarView: View {
     @ObservedObject var calendarViewModel: CalendarViewModel
@@ -13,6 +14,43 @@ struct CalendarView: View {
     @State private var date = Date.now
 
     @State private var selectedDay: SelectedDay?
+
+    @Query private var allAnswers: [PollAnswers]
+
+    private func answers(for day: Date) -> PollAnswers? {
+        allAnswers.first { $0.date == day.startOfDay }
+    }
+
+    /// True when the user answered "yes" to being on their period that day.
+    private func loggedPeriod(on day: Date) -> Bool {
+        answers(for: day)?.answers[.onPeriod] == .yes
+    }
+
+    /// Capsule that joins up with neighbouring logged days so a run of
+    /// period days reads as one continuous pill.
+    @ViewBuilder
+    private func loggedPeriodOverlay(for day: Date) -> some View {
+        if loggedPeriod(on: day) {
+            let calendar = Calendar.current
+            let previous = calendar.date(byAdding: .day, value: -1, to: day)!
+            let next = calendar.date(byAdding: .day, value: 1, to: day)!
+            let joinsLeft = loggedPeriod(on: previous) && !day.isFirstDayOfRow
+            let joinsRight = loggedPeriod(on: next) && !day.isLastDayOfRow
+            let radius: CGFloat = 18
+            let gap: CGFloat = 8   // the grid's column spacing
+
+            UnevenRoundedRectangle(
+                topLeadingRadius: joinsLeft ? 0 : radius,
+                bottomLeadingRadius: joinsLeft ? 0 : radius,
+                bottomTrailingRadius: joinsRight ? 0 : radius,
+                topTrailingRadius: joinsRight ? 0 : radius
+            )
+            .fill(CoreColor.primary.opacity(0.22))
+            .padding(.vertical, 2)
+            // Only the trailing side bridges the gap, so neighbours never overlap.
+            .padding(.trailing, joinsRight ? -gap : 0)
+        }
+    }
     
     private let daysOfWeek =
         Date.capitaliseFirstLetterOfWeek
@@ -42,6 +80,9 @@ struct CalendarView: View {
             .padding()
         }
         .scrollIndicators(.hidden)
+        .sheet(item: $selectedDay) { selected in
+            DayDetailSheet(day: selected.date)
+        }
     }
 
     private func monthCalendar(for month: Date) -> some View {
@@ -81,19 +122,31 @@ struct CalendarView: View {
             Color.clear
                 .frame(
                     maxWidth: .infinity,
-                    minHeight: 40
+                    minHeight: 50
                 )
         } else {
-            ZStack {
-                dayBackground(for: day)
+            Button {
+                if SelectedDay(id: day.startOfDay).date <= SelectedDay(id: Date().startOfDay).date {
+                    selectedDay = SelectedDay(id: day.startOfDay)
+                }
+            } label: {
+                ZStack {
+                    dayBackground(for: day)
+                    Text(day.formatted(.dateTime.day()))
+                        .foregroundStyle(CoreColor.primary)
 
-                Text(day.formatted(.dateTime.day()))
-                    .foregroundStyle(CoreColor.primary)
+                }
+                .overlay { loggedPeriodOverlay(for: day) }
+                .overlay {
+                    Text(day.formatted(.dateTime.day()))
+                        .foregroundStyle(CoreColor.primary)
+                        .opacity(loggedPeriod(on: day) ? 1 : 0)
+                }
+                .frame(maxWidth: .infinity, minHeight: 45)
+                .contentShape(Rectangle())
+                
             }
-            .frame(
-                maxWidth: .infinity,
-                minHeight: 40
-            )
+            .buttonStyle(.plain)
         }
     }
 
@@ -111,7 +164,7 @@ struct CalendarView: View {
                 )
         } else if Date.now.startOfDay == day.startOfDay {
             Circle()
-                .foregroundStyle(.gray.opacity(0.3))
+                .foregroundStyle(CoreColor.lavender.opacity(0.8))
         } else {
             Color.clear
         }
@@ -122,4 +175,5 @@ struct CalendarView: View {
     CalendarView(
         calendarViewModel: CalendarViewModel()
     )
+    .modelContainer(for: PollAnswers.self, inMemory: true)
 }
