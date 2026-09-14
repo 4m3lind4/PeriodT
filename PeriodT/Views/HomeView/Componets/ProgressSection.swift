@@ -39,7 +39,6 @@ struct ProgressSection: View {
             }
 
         }
-        .padding(10)
  
     }
 }

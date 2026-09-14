@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ExerciseType {
+enum ExerciseType: CaseIterable {
     case physio
     case conditioningTraining
     
@@ -17,12 +17,11 @@ extension ExerciseType {
     var title: String {
         
         switch self {
-            
         case .physio:
             return "Physio"
-
         case .conditioningTraining:
             return "Conditioning"
         }
     }
+    
 }

@@ -39,7 +39,7 @@ struct ProgramCard: View {
             .font(.subheadline)
         }
         .padding(16)
-        .frame(width: 230, height: 150, alignment: .leading)
+        .frame(width: 250, height: 130, alignment: .leading)
         .foregroundStyle(.white)
         .background(program.color)
         .clipShape(RoundedRectangle(cornerRadius: 12))

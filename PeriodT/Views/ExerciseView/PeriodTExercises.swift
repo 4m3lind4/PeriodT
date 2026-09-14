@@ -9,7 +9,20 @@ import SwiftUI
 
 struct PeriodTExercises: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing:1){
+            Text ("Today's Program")
+                .font(Font.system(size: 30, weight: .bold, design: .rounded))
+                .foregroundColor(CoreColor.primary)
+            Text ("Exercise Programs")
+                .font(.title2)
+                .foregroundColor(CoreColor.primary)
+            Text ("Physio Programs")
+                .font(.title2)
+                .foregroundColor(CoreColor.primary)
+
+
+            
+        }
     }
 }
 

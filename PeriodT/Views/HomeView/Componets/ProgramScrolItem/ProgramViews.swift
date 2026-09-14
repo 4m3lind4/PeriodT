@@ -27,6 +27,7 @@ struct ProgramViews: View {
             )
         ]
 
+    //MARK: Formatting
     var body: some View {
         HStack{
             VStack(alignment: .leading, spacing:1){
@@ -56,6 +57,7 @@ struct ProgramViews: View {
                 }
             }
         }
+
     }
 
 }
